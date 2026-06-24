@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15502f">
+<title>Quinta da Barroca · Pool Service Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#15502f; --green-soft:#6f8c7c; --ink:#234b38;
+    --leader:#cdd8d0; --paper:#ffffff; --wash:#f3f5f2;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Jost',sans-serif;background:var(--wash);color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:480px;margin:0 auto;background:var(--paper);min-height:100vh;
+    box-shadow:0 0 50px rgba(20,40,30,.08);}
+
+  /* header */
+  header{
+    position:sticky;top:0;z-index:10;background:var(--green);
+    padding:calc(env(safe-area-inset-top) + 16px) 22px 14px;
+    text-align:center;
+  }
+  .brand{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:30px;
+    color:#fff;line-height:.9;}
+  .brand small{display:block;font-family:'Jost',sans-serif;font-weight:500;
+    font-size:8.5px;letter-spacing:3px;margin-top:3px;color:rgba(255,255,255,.85);}
+  h1{margin:11px 0 0;font-weight:500;font-size:18px;letter-spacing:3.5px;
+    text-transform:uppercase;color:#fff;}
+  /* toggle */
+  .toggle{display:inline-flex;margin-top:14px;border:1.5px solid rgba(255,255,255,.55);
+    border-radius:40px;overflow:hidden;}
+  .toggle button{appearance:none;border:0;background:transparent;cursor:pointer;
+    font-family:'Jost',sans-serif;font-weight:600;font-size:12px;letter-spacing:1.5px;
+    color:rgba(255,255,255,.7);padding:8px 22px;transition:.2s;}
+  .toggle button.on{background:#fff;color:var(--green);}
+
+  /* sections */
+  main{padding:22px 22px calc(env(safe-area-inset-bottom) + 30px);}
+  .sec{margin-bottom:26px;}
+  .sec:last-child{margin-bottom:0;}
+  .sec-top{border-top:1.5px solid var(--green);margin-bottom:12px;}
+  .sec h2{margin:0 0 14px;font-weight:500;font-size:24px;letter-spacing:.3px;
+    color:var(--green);}
+  .sec .note{font-weight:400;font-size:12.5px;color:var(--green-soft);
+    margin:-8px 0 13px;letter-spacing:.2px;}
+
+  .row{display:flex;align-items:flex-end;gap:8px;margin-bottom:13px;}
+  .row:last-child{margin-bottom:0;}
+  .name{font-weight:500;font-size:16.5px;color:var(--ink);line-height:1.15;}
+  .name .desc{display:block;font-weight:400;font-size:12px;color:var(--green-soft);
+    margin-top:2px;line-height:1.1;}
+  .dots{flex:1 1 auto;border-bottom:2px dotted var(--leader);
+    transform:translateY(-4px);min-width:14px;}
+  .price{font-weight:500;font-size:16.5px;color:var(--green);white-space:nowrap;}
+
+  footer{background:var(--green);color:#fff;text-align:center;
+    padding:20px 22px calc(env(safe-area-inset-bottom) + 22px);}
+  footer .hours{font-weight:500;font-size:15px;letter-spacing:.4px;}
+  footer .sig{font-family:'Cormorant Garamond',serif;font-size:26px;margin-top:10px;
+    line-height:.9;}
+  footer .sig small{display:block;font-family:'Jost',sans-serif;font-weight:500;
+    font-size:8px;letter-spacing:3px;margin-top:2px;color:rgba(255,255,255,.8);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">Quinta da Barroca<small>QUINTA DA BARROCA</small></div>
+    <h1 id="title">Serviço de Piscina</h1>
+    <div class="toggle">
+      <button id="btn-pt" class="on" onclick="setLang('pt')">PT</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </header>
+  <main id="menu"></main>
+  <footer>
+    <div class="hours" id="hours">Todos os dias · 13h00 às 20h00</div>
+    <div class="sig">Q<small>QUINTA DA BARROCA</small></div>
+  </footer>
+</div>
+
+<script>
+const DATA = {
+  pt: {
+    title:"Serviço de Piscina",
+    hours:"Todos os dias · 13h00 às 20h00",
+    sections:[
+      {h:"Snacks Quentes", items:[
+        ["Nuggets de Frango","","5,00"],
+        ["Asas de Frango","","5,00"],
+        ["Croquetes de Mozzarella","","5,00"],
+        ["Aros de Cebola","","5,00"],
+        ["Tosta Mista","Fiambre & queijo","5,00"],
+        ["Sopa","","3,00"],
+      ]},
+      {h:"Pizzas", items:[
+        ["Margarita","Mozzarella, manjericão","10,00"],
+        ["Vegana","Queijo vegano, cogumelos","12,00"],
+        ["Fiambre","Mozzarella, fiambre","12,00"],
+        ["Diavolo","Salame picante, mel","12,00"],
+      ]},
+      {h:"Batatas Fritas", items:[
+        ["Rodelas","","1,50"],
+        ["Camponesa","","1,50"],
+        ["Ondulada Presunto","","1,50"],
+        ["Lisa Clássica","","1,50"],
+      ]},
+      {h:"Doces", items:[
+        ["Bola de Berlim","","2,00"],
+        ["Iogurte Gelado","","6,00"],
+        ["Cobertura Extra","","2,00"],
+      ]},
+      {h:"Refrigerantes", items:[
+        ["Coca-Cola","Normal / Zero","2,50"],
+        ["Chá Gelado","Manga / Pêssego / Limão","2,50"],
+        ["Fanta Laranja","","2,50"],
+        ["Água","0,33L","1,50"],
+        ["Água","1,5L","3,00"],
+        ["Água com Gás","Natural / Limão","1,50"],
+        ["Café","","1,50"],
+      ]},
+      {h:"Cervejas", items:[
+        ["Super Bock","","3,00"],
+        ["Super Bock 0,0","Sem álcool","3,00"],
+      ]},
+      {h:"Vinhos", note:"Tinto / Branco / Rosé", items:[
+        ["Garrafa","","15,00"],
+        ["Copo","","4,00"],
+      ]},
+    ]
+  },
+  en: {
+    title:"Pool Service Menu",
+    hours:"Open daily · 1:00 PM – 8:00 PM",
+    sections:[
+      {h:"Hot Snacks", items:[
+        ["Chicken Nuggets","Corn-flake","5.00"],
+        ["Chicken Wings","","5.00"],
+        ["Mozzarella Croquettes","","5.00"],
+        ["Onion Rings","","5.00"],
+        ["Toasted Sandwich","Ham & cheese","5.00"],
+        ["Soup","Of the day","3.00"],
+      ]},
+      {h:"Pizzas", items:[
+        ["Margherita","Mozzarella, basil","10.00"],
+        ["Vegan","Vegan cheese, mushrooms","12.00"],
+        ["Ham","Mozzarella, ham","12.00"],
+        ["Diavolo","Spicy salami, honey","12.00"],
+      ]},
+      {h:"Crisps", items:[
+        ["Round","","1.50"],
+        ["Rustic","","1.50"],
+        ["Ham Ridged","","1.50"],
+        ["Classic","","1.50"],
+      ]},
+      {h:"Sweets", items:[
+        ["Berliner Doughnut","","2.00"],
+        ["Frozen Yogurt","","6.00"],
+        ["Extra Topping","","2.00"],
+      ]},
+      {h:"Soft Drinks", items:[
+        ["Coca-Cola","Regular / Zero","2.50"],
+        ["Ice Tea","Mango / Peach / Lemon","2.50"],
+        ["Fanta","Orange","2.50"],
+        ["Water","33cl","1.50"],
+        ["Water","1.5L","3.00"],
+        ["Sparkling Water","Plain / Lemon","1.50"],
+        ["Coffee Espresso","","1.50"],
+      ]},
+      {h:"Beers", items:[
+        ["Super Bock","","3.00"],
+        ["Super Bock 0.0","Alcohol-free","3.00"],
+      ]},
+      {h:"Wines", note:"Red / White / Rosé", items:[
+        ["Bottle","","15.00"],
+        ["Glass","","4.00"],
+      ]},
+    ]
+  }
+};
+
+function render(lang){
+  const d = DATA[lang];
+  let html = "";
+  for(const s of d.sections){
+    html += '<section class="sec"><div class="sec-top"></div><h2>'+s.h+'</h2>';
+    if(s.note) html += '<div class="note">'+s.note+'</div>';
+    for(const it of s.items){
+      const desc = it[1] ? '<span class="desc">'+it[1]+'</span>' : '';
+      html += '<div class="row"><div class="name">'+it[0]+desc+'</div>'
+            + '<div class="dots"></div><div class="price">€'+it[2]+'</div></div>';
+    }
+    html += '</section>';
+  }
+  document.getElementById('menu').innerHTML = html;
+  document.getElementById('title').textContent = d.title;
+  document.getElementById('hours').textContent = d.hours;
+  document.documentElement.lang = lang;
+}
+function setLang(lang){
+  document.getElementById('btn-pt').classList.toggle('on', lang==='pt');
+  document.getElementById('btn-en').classList.toggle('on', lang==='en');
+  render(lang);
+  try{ localStorage.setItem('poolMenuLang', lang); }catch(e){}
+}
+let start='pt';
+try{ const s=localStorage.getItem('poolMenuLang'); if(s==='en'||s==='pt') start=s; }catch(e){}
+setLang(start);
+</script>
+</body>
+</html>
