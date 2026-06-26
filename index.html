@@ -209,13 +209,10 @@ function setLang(lang){
   document.getElementById('btn-pt').classList.toggle('on', lang==='pt');
   document.getElementById('btn-en').classList.toggle('on', lang==='en');
   render(lang);
-  try{ localStorage.setItem('poolMenuLang_v2', lang); }catch(e){}
 }
-// Always default to Portuguese on a fresh visit; remember the guest's choice only
-// within this browser. Key is versioned so any previously "stuck" language resets to PT.
-let start='pt';
-try{ const s=localStorage.getItem('poolMenuLang_v2'); if(s==='en'||s==='pt') start=s; }catch(e){}
-setLang(start);
+// Always open in Portuguese on every visit (no saved-language memory).
+// Guests can tap EN to read in English for their current session.
+setLang('pt');
 </script>
 </body>
 </html>
